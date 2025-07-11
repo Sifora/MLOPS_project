@@ -1,0 +1,26 @@
+stages:
+  - build
+  - test
+  - deploy
+
+variables:
+  DOCKER_DRIVER: overlay2
+
+build:
+  stage: build
+  script:
+    - echo "Building Docker image..."
+    - docker build -t mlops-flask-app .
+
+test:
+  stage: test
+  script:
+    - echo "Running unit tests (if any)..."
+    # optional: run test script inside the container
+    - docker run mlops-flask-app python -m unittest || echo "No tests defined"
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploying... (this is a placeholder)"
+    # you can later add `docker run`, push to registry, or actual deployment steps here
