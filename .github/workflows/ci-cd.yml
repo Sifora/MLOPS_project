@@ -30,12 +30,3 @@ jobs:
     - name: Build Docker image
       run: docker build -t my-flask-ml-app .
 
-    # Optional: push image to Docker Hub
-    # - name: Push to Docker Hub
-    #   env:
-    #     DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-    #     DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-    #   run: |
-    #     echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-    #     docker tag my-flask-ml-app $DOCKER_USERNAME/my-flask-ml-app:latest
-    #     docker push $DOCKER_USERNAME/my-flask-ml-app:latest
