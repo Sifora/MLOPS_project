@@ -28,7 +28,7 @@ jobs:
         pip install -r requirements.txt
 
     - name: Run model test
-      run: python model.py
+      run: python Model.py
 
     - name: Build Docker image
       run: docker build -t my-flask-ml-app .
