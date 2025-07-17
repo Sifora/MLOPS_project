@@ -1,5 +1,11 @@
 from flask import Flask, request, jsonify
-from Model import predict  # Import the predict function from model.py
+from prometheus_client import Counter, Summary, generate_latest
+
+from Model import predict
+
+REQUEST_COUNT = Counter("request_count", "Total prediction requests")
+INFERENCE_TIME = Summary("inference_processing_seconds", "Time spent processing prediction")
+
 
 app = Flask(__name__)
 
@@ -9,8 +15,10 @@ def home():
     return "Flask app is running!"
 
 @app.route("/predict", methods=["POST"])
+@INFERENCE_TIME.time()
 
 def predict_route():
+    REQUEST_COUNT.inc()
     data = request.get_json()
     text = data.get("text", "")
 
@@ -19,6 +27,11 @@ def predict_route():
 
     prediction = predict(text)
     return jsonify(prediction)
+
+@app.route("/metrics")
+def metrics():
+    return generate_latest(), 200, {"Content-Type": "text/plain"}
+
 
 if __name__ == "__main__":
     app.run(debug=True)
