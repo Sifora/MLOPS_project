@@ -37,10 +37,3 @@ Design and implement an end-to-end MLOps pipeline for serving an open-source sen
 
 ---
 
-## Usage Instructions
-
-### Running Locally
-
-```bash
-pip install -r requirements.txt
-python app.py
